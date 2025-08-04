@@ -248,7 +248,19 @@ export const DataProvider: React.FC<{ children: React.ReactNode }> = ({ children
   };
 
   const addBalanceSheetItem = async (item: Omit<BalanceSheetItem, 'id'>) => {
-    if (!user) return;
+    if (!user) {
+      // Store in localStorage when no user
+      const newItem: BalanceSheetItem = {
+        id: Date.now().toString(),
+        ...item
+      };
+      
+      const existing = JSON.parse(localStorage.getItem('charge24_balance_sheet_local') || '[]');
+      existing.unshift(newItem);
+      localStorage.setItem('charge24_balance_sheet_local', JSON.stringify(existing));
+      setBalanceSheetItems(prev => [newItem, ...prev]);
+      return;
+    }
 
     const { data, error } = await supabase
       .from('balance_sheet_items')

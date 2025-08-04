@@ -2,6 +2,7 @@ import React from 'react';
 import { useData } from '../../contexts/DataContext';
 import { formatCurrency } from '../../utils/formatters';
 import { TrendingUp, TrendingDown, DollarSign, Wallet, BarChart3, Users } from 'lucide-react';
+import DataBackup from '../Backup/DataBackup';
 
 const Dashboard: React.FC = () => {
   const { transactions, pettyCashEntries } = useData();
@@ -67,6 +68,9 @@ const Dashboard: React.FC = () => {
 
   return (
     <div className="space-y-6">
+      {/* Data Backup Section - URGENT */}
+      <DataBackup />
+      
       <div className="flex justify-between items-center">
         <h1 className="text-3xl font-bold text-gray-900">Dashboard</h1>
         <div className="text-sm text-gray-500">
